@@ -1,0 +1,48 @@
+{
+  "entities": {
+    "Meme": {
+      "title": "Meme",
+      "description": "A saved meme created by a user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userDisplayName": { "type": "string", "maxLength": 100 },
+        "userEmail": { "type": "string", "maxLength": 150 },
+        "title": { "type": "string", "maxLength": 200 },
+        "caption": { "type": "string", "maxLength": 500 },
+        "imageUrl": { "type": "string", "maxLength": 5000000 },
+        "isPublic": { "type": "boolean" },
+        "likesCount": { "type": "number" },
+        "tags": { "type": "array" },
+        "templateId": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "imageUrl", "isPublic", "createdAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile document",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 150 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/memes/{memeId}": {
+      "schema": "Meme",
+      "description": "Collection of user-created memes"
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile data"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "MemeGen AI - Magic Caption & Meme Studio",
+  "description": "AI-powered meme generator with Magic Caption image analysis, trending templates, text prompt image generation, and pro canvas editing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
