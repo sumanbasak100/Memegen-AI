@@ -142,7 +142,15 @@ export default function App() {
   const [currentCanvas, setCurrentCanvas] = useState<HTMLCanvasElement | null>(null);
   const [capturedExportUrl, setCapturedExportUrl] = useState<string>('');
   const [justCopied, setJustCopied] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage((curr) => (curr === msg ? null : curr));
+    }, 3500);
+  };
 
   // Generate Export URL from canvas
   const getCanvasDataUrl = () => {
@@ -231,7 +239,7 @@ export default function App() {
       };
     } catch (err: any) {
       console.error('Magic caption request error:', err);
-      alert('AI Caption Notice: ' + (err.message || 'Please check your connection'));
+      showToast('AI Caption Notice: ' + (err.message || 'Please check your connection'));
     } finally {
       setIsMagicLoading(false);
     }
@@ -1335,6 +1343,14 @@ export default function App() {
         isOpen={isCorporateModalOpen}
         onClose={() => setIsCorporateModalOpen(false)}
       />
+
+      {/* Floating In-App Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-slate-900/95 border border-purple-500/40 text-purple-200 text-xs font-medium shadow-2xl backdrop-blur-md animate-fade-in flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-purple-400 shrink-0 animate-pulse" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
     </div>
   );
 }
